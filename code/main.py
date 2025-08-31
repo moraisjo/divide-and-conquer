@@ -1,6 +1,6 @@
 def maxmin_select(arr, left, right):
     if left == right:
-        return arr[left], arr[left]  # (min, max)
+        return arr[left], arr[left]
     
     if right == left + 1:
         if arr[left] < arr[right]:
