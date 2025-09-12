@@ -88,4 +88,60 @@ Após obter mínimo e máximo de cada metade:
 
 Essa etapa combina os resultados usando apenas 2 comparações.<br>
 
----
+## Cálculo da complexidade assintótica
+* Operações básicas:
+`if left == right` → comparação constante, 1 operação<br>
+return arr[left], arr[left] → retorno constante, 1 operação<br>
+if right == left + 1 → comparação constante, 1 operação<br>
+`mid = (left + right) // 2` → constante, 1 operação<br>
+`return min(min1, min2), max(max1, max2)` → constantes, 1 operação<br>
+<br>
+* Caso base:
+Caso 1: `left == right` → retorna um único valor → custo O(1).
+Caso 2: `right == left + 1` → faz apenas uma comparação e um retorno → também custo O(1).
+
+* Identificar as chamadas recursivas
+```code
+min1, max1 = maxmin_select(arr, left, mid)  
+min2, max2 = maxmin_select(arr, mid + 1, right)
+```
+
+Conclusão:<br>
+Número de chamadas recursivas: 2
+Tamanho de cada subproblema: n/2
+
+* Montar a recorrência
+
+Agora montamos a equação:
+
+𝑇(𝑛)=2𝑇(𝑛2)+𝑂(1)$$ <br>
+T(n) = 2T (2n) + O(1)
+
+T(n/2) → duas chamadas recursivas.
++ O(1)$$ → custo fixo fora das chamadas.
+
+<br><br>
+I. Identifique os valores de a, b e f(n) na fórmula: T(n)=a⋅T(n/b)+f(n)
+Comparando a recorrência do algoritmo com a forma geral do Teorema Mestre, podemos identificar os seguintes valores:
+
+a=2: Este é o número de subproblemas em que o problema principal é dividido. O algoritmo faz duas chamadas recursivas (maxmin_select(arr, left, mid) e maxmin_select(arr, mid + 1, right)).
+
+b=2: Este é o fator pelo qual o tamanho da entrada é reduzido para cada subproblema. O array é dividido ao meio a cada chamada (mid = (left + right) // 2).
+
+f(n)=O(1): Esta é a complexidade do trabalho realizado fora das chamadas recursivas. Neste caso, envolve apenas algumas comparações (min(min1, min2) e max(max1, max2)), que levam tempo constante.
+
+II. Calcule log para determinar o valor de p:
+ a =log (base2) 2 = 1
+
+III. Determinando o caso do Teorema Mestre
+Comparando 𝑓(𝑛) = 𝑂(1) com 𝑛^(log𝑏𝑎) = 𝑛¹:
+
+𝑓(𝑛) = 𝑂(1) = 𝑂(𝑛^(log𝑏𝑎 - ε)) para ε = 1 (pois 𝑛^(1-1) = 𝑛⁰ = 1).
+Portanto, estamos no Caso 1 do Teorema Mestre.
+
+IV. Solução assintótica
+No Caso 1, a solução é:
+𝑇(𝑛) = Θ(𝑛^(log𝑏𝑎)) = Θ(𝑛¹) = Θ(𝑛)
+
+Conclusão
+A complexidade assintótica do algoritmo maxmin_select é Θ(𝑛).
